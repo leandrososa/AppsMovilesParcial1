@@ -1,7 +1,11 @@
 package com.leandrososa.appsmovilesparcial1.pages
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -20,48 +24,68 @@ fun LoginPage(navController: NavHostController) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Correo Electrónico") },
-            modifier = Modifier.fillMaxWidth()
-        )
+            .padding(16.dp)
+    ){
+        Column(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                imageVector = Icons.Default.AccountCircle,
+                contentDescription = "User Icon",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(100.dp)
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Correo Electrónico") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Contraseña") },
-            modifier = Modifier.fillMaxWidth()
-        )
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Contraseña") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        Button(onClick = {
-            if(email.isEmpty() || password.isEmpty()){
-                scope.launch {
-                    snackbarHostState.showSnackbar("Por favor complete todos los campos")
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(onClick = {
+                if(email.isEmpty() || password.isEmpty()){
+                    scope.launch {
+                        snackbarHostState.showSnackbar("Por favor complete todos los campos")
+                    }
                 }
-            }
-            else if (email == "pedro@pe.com.ar" && password == "abc123"){
-                val myName = "Pedro Pe"
-                navController.navigate("home/$myName")
-            } else {
-                scope.launch {
-                    snackbarHostState.showSnackbar("Usuario o contraseña incorrectos")
+                else if (email == "pedro@pe.com.ar" && password == "abc123"){
+                    val myName = "Pedro Pe"
+                    navController.navigate("home/$myName")
+                } else {
+                    scope.launch {
+                        snackbarHostState.showSnackbar("Usuario o contraseña incorrectos")
+                    }
                 }
+            }) {
+                Text("Iniciar sesión")
             }
-        }) {
-            Text("Iniciar sesión")
+
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                text = "Leandro Sosa, Parcial 1 de Aplicaciones Móviles",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+
+            SnackbarHost(hostState = snackbarHostState)
         }
-
-        SnackbarHost(hostState = snackbarHostState)
     }
 }
