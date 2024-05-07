@@ -12,11 +12,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.leandrososa.appsmovilesparcial1.ui.theme.AppsMovilesParcial1Theme
 
 @Composable
-fun HomePage() {
+fun HomePage(message: String?) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = "Welcome", style = MaterialTheme.typography.headlineLarge)
-            Text(text = "Pedro Pe")
+            if (message != null) {
+                Text(text = message)
+            }
         }
     }
 }
@@ -25,6 +27,6 @@ fun HomePage() {
 @Composable
 fun HomePagePreview() {
     AppsMovilesParcial1Theme {
-        HomePage()
+        HomePage("Pedro Pe")
     }
 }

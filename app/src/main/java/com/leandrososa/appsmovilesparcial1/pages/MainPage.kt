@@ -8,14 +8,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.leandrososa.appsmovilesparcial1.ui.theme.AppsMovilesParcial1Theme
 
 @Composable
@@ -48,8 +48,14 @@ fun MainNavHost(
         composable("login") {
             LoginPage(navHostController)
         }
-        composable("home") {
-            HomePage()
+        composable(
+            route = "home/{username}",
+            arguments = listOf(
+                navArgument(name = "username") { type = NavType.StringType }
+            )
+        ){
+            val username = it.arguments?.getString("username")
+            HomePage(username)
         }
     }
 }

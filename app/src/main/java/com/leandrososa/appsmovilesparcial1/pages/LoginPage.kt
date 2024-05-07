@@ -51,7 +51,8 @@ fun LoginPage(navController: NavHostController) {
                 }
             }
             else if (email == "pedro@pe.com.ar" && password == "abc123"){
-                navController.navigate("home")
+                val myName = "Pedro Pe"
+                navController.navigate("home/$myName")
             } else {
                 scope.launch {
                     snackbarHostState.showSnackbar("Usuario o contraseña incorrectos")
